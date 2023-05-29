@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .collapsed {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Collapsible Content</h1>
+  
+  <p class="collapsible">This is a paragraph.</p>
+  <p class="collapsible">This is another paragraph.</p>
+  
+  <h2 class="collapsible">Section 1</h2>
+  <p>This is some content in Section 1.</p>
+  
+  <h2 class="collapsible">Section 2</h2>
+  <p>This is some content in Section 2.</p>
+  
+  <script>
+    function cmp(a, b) {
+        const order = { 'P': 0, 'H3': 1, 'H2': 2, 'H1': 3 };
+        const tagA = a.tagName.toUpperCase();
+        const tagB = b.tagName.toUpperCase();
+        
+        if (order[tagA] < order[tagB]) {
+          return -1;
+        } else if (order[tagA] > order[tagB]) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+      
+    // Function to toggle collapse/expand
+    function toggleCollapse(element) {
+      var nextElement = element.nextElementSibling;
+      while (nextElement && cmp(nextElement,element)==-1) {
+        nextElement.classList.toggle('collapsed');
+        nextElement = nextElement.nextElementSibling;
+      }
+    }
+    
+    // Attach click event listeners to collapsible elements
+    var collapsibleElements =  document.querySelectorAll('h1, h2, h3');
+
+    for (var i = 0; i < collapsibleElements.length; i++) {
+      collapsibleElements[i].addEventListener('click', function() {
+        toggleCollapse(this);
+      });
+    }
+  </script>
+</body>
+</html>
